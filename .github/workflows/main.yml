@@ -64,7 +64,7 @@ env:
   ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: true
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     container: minecraftlinux/ci-xenial:0.0.1
     defaults:
       run:
@@ -141,7 +141,7 @@ jobs:
         name: appimage-xenial${{ inputs.suffix }}-x86_64
         path: output/
   build32:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     container: minecraftlinux/ci-xenial:0.0.1
     defaults:
       run:
@@ -218,7 +218,7 @@ jobs:
         name: appimage-xenial${{ inputs.suffix }}-i386
         path: output/
   buildbusterappimage:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     strategy:
       matrix:
         darch:
@@ -283,7 +283,7 @@ jobs:
         name: appimage-buster${{ inputs.suffix }}-armhf
         path: output/
   buildarmappimage64:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     strategy:
       matrix:
         darch:
@@ -354,7 +354,7 @@ jobs:
         name: appimage-buster${{ inputs.suffix }}-arm64
         path: output/
   appimage-bookworm:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     strategy:
       matrix:
         arch:
@@ -443,7 +443,7 @@ jobs:
         path: output/
   publish:
     permissions: write-all
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     needs: [ build, build32, buildbusterappimage, buildarmappimage64, appimage-bookworm ]
     if: ${{ !cancelled() && (github.event_name == 'push' && github.server_url == 'https://github.com' && github.repository == 'minecraft-linux/appimage-builder' || github.event_name == 'workflow_dispatch' && inputs.type != 'build') }}
     steps:
