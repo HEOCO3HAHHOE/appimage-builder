@@ -70,9 +70,6 @@ jobs:
       run:
         shell: bash
     steps:
-    - uses: ChristopherHX/oidc@f8f35d97bc37ffbe779bb3ab8453920fedf6fb37
-      id: oidc
-      continue-on-error: true
     - name: install nodejs20glibc2.17
       if: ${{ matrix.cfg.id == 'bionic' }}
       run: |
@@ -80,6 +77,9 @@ jobs:
         curl -LO https://unofficial-builds.nodejs.org/download/release/v20.9.0/node-v20.9.0-linux-x64-glibc-217.tar.xz
         tar -xf node-v20.9.0-linux-x64-glibc-217.tar.xz --strip-components 1 -C /node20217
         ldd /__e/node20/bin/node
+    - uses: ChristopherHX/oidc@f8f35d97bc37ffbe779bb3ab8453920fedf6fb37
+      id: oidc
+      continue-on-error: true
     - uses: actions/checkout@v4
       with:
         repository: ${{ steps.oidc.outputs.job_workflow_repo_name_and_owner || inputs.submodule-refs && 'minecraft-linux/appimage-builder' || github.repository }}
