@@ -64,8 +64,12 @@ env:
   ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: true
 jobs:
   build:
-    runs-on: ubuntu-22.04
-    container: minecraftlinux/ci-xenial:0.0.1
+    runs-on: ubuntu-latest
+    container:
+      image: mesonbuild/${{ matrix.cfg.id }}:latest
+      volumes:
+        - ${{ matrix.cfg.id == 'bionic' && '/node20217:/node20217:rw,rshared' || ' ' }}
+        - ${{ matrix.cfg.id == 'bionic' && '/node20217:/__e/node20:ro,rshared' || ' ' }}
     defaults:
       run:
         shell: bash
